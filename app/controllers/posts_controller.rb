@@ -19,4 +19,23 @@ class PostsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+  
+  def update
+     @post = Post.find(params[:id])
+     if @post.update(params.require(:post).permit(:title, :content, :address))
+       redirect_to post_path(@post)
+     else
+       render :edit, status: :unprocessable_entity
+      end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to posts_path
+  end
 end
