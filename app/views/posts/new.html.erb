@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>New Post</h1>
+
+    
+    <% if @post.errors.any? %>
+        <ul>
+            <% @post.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+            <% end %>
+        </ul>
+    <% end %>
+
+    <%= form_with model: @post do |form| %>
+        <div class="mb-2">
+            <%= form.label :title, class: 'form-label' %>
+            <%= form.text_field :title, class: 'form-control' %>
+        </div>
+        <div class="mb-2">
+            <%= form.label :address, class: 'form-label'  %>
+            <%= form.text_field :address, class: 'form-control' %>
+        </div>
+        <div class="mb-3">
+            <%= form.label :content, class: 'form-label' %>
+            <%= form.text_area :content, class: 'form-control' %>
+        </div>
+
+        <%= form.submit 'Submit', class: 'btn btn-primary' %>
+    <% end %>
+</div>
