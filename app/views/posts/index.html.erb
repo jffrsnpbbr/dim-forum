@@ -8,7 +8,10 @@
         <tbody>
             <% @posts.each do |post| %>
             <tr>
-                <td><%= link_to post.title, post_path(post) %></td>
+                <td>
+                    <div>Posted by: <%= post.user.email %></div>
+                    <p class="fs-1 text-capitalize" ><%= link_to post.title, post_path(post), class: "text-decoration-none" %></p>
+                </td>
             </tr>
             <% end %>
         </tbody>
