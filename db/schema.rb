@@ -10,11 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_03_073640) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_03_085924) do
   create_table "categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", charset: "utf8mb4", force: :cascade do |t|
+    t.text "content"
+    t.datetime "deleted_at"
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
   create_table "post_category_ships", charset: "utf8mb4", force: :cascade do |t|
@@ -49,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_073640) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "posts"
   add_foreign_key "post_category_ships", "categories"
   add_foreign_key "post_category_ships", "posts"
 end
