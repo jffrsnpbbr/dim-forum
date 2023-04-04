@@ -1,8 +1,10 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :validate_post_owner, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.includes(:categories, :comments).all
+    @posts = Post.includes(:categories, :comments, :user).all
   end
 
   def new
@@ -11,6 +13,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.user = current_user
     if @post.save
       redirect_to posts_path
     else
@@ -23,11 +26,11 @@ class PostsController < ApplicationController
   def edit; end
   
   def update
-     if @post.update(post_params)
-       redirect_to post_path(@post)
-     else
-       render :edit, status: :unprocessable_entity
-      end
+    if @post.update(post_params)
+      redirect_to post_path(@post)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -37,6 +40,13 @@ class PostsController < ApplicationController
 
   private
 
+  def validate_post_owner
+    unless @post.user == current_user
+      flash[:notice] = "the post doesn't belong to you"
+      redirect_to posts_path
+    end
+  end
+  
   def set_post
     @post = Post.find(params[:id])
   end
