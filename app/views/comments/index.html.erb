@@ -1,0 +1,19 @@
+<h1>Title <%= @post.title %></h1>
+<%= link_to 'New Comment', new_post_comment_path(@post), class: 'btn btn-outline-dark' %>
+<div>
+<% @comments.each do |comment| %>
+    <div class="card mx-4 my-3">
+        <div class="card-header">
+            <small class="text-muted"><%= comment.created_at.strftime("%Y/%m/%d %I:%M %p") %></small>
+        </div>
+        <div class="card-body">
+            <%= comment.content %>
+        </div>
+        <div class="card-footer">
+            <%= link_to 'Edit', edit_post_comment_path(@post, comment), class: 'btn btn-outline-dark' %>
+            <%= button_to 'Delete', post_comment_path(@post, comment), method: :delete, form: { class: 'd-inline'}, class: 'btn btn-outline-danger' %>
+        </div>
+    </div>
+<% end %>
+<%= link_to 'Post List', posts_path, class: 'btn btn-outline-dark' %>
+<div>
