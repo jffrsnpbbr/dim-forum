@@ -4,6 +4,7 @@ class Comment < ApplicationRecord
   validates :content, presence: true
 
   belongs_to :post
+  belongs_to :user
 
   def destroy
     update(deleted_at: Time.current)
