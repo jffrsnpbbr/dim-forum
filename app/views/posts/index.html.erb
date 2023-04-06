@@ -4,18 +4,23 @@
             <tr>
                 <th>Title</th>
                 <th>Categories</th>
+                <th>Comments Count</th>
             </tr>
         </thead>
         <tbody>
-            <% @posts.each do |post| %>
+            <% @posts.each_with_index do |post, index| %>
             <tr>
-                <td><%= link_to post.title, post_path(post) %></td>
+                <td>
+                  <% if index <= 2 %>
+                    <span class="badge rounded-pill  bg-danger">&#128293; HOT </span>
+                  <% end %>
+                  <%= link_to post.title, post_path(post), class: 'mx-2' %></td>
                 <td>
                     <% post.categories.each do |category| %>
-                        <span class="badge bg-secondary"><%= category.name %></span> 
+                        <span class="badge bg-secondary rounded-pill"><%= category.name %></span>
                     <% end %>
                 </td>
-                <td><%= link_to 'Comments', post_comments_path(post) %></td>
+                <td><%= link_to "#{post.comments_count} Comments", post_comments_path(post) %></td>
             </tr>
             <% end %>
         </tbody>
