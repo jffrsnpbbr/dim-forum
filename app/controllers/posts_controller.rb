@@ -34,8 +34,13 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
-    redirect_to posts_path
+    if @post.comments_count == 0
+      @post.destroy
+      redirect_to posts_path
+    else
+      flash[:notice] = 'Deleting Post with existing comment is not allowed'
+      redirect_to post_path(@post)
+    end
   end
 
   private
