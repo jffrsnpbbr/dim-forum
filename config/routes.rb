@@ -3,8 +3,14 @@ Rails.application.routes.draw do
 
   root 'posts#index'
 
-  resources :posts do
+  resources :users, only: [:index, :show] do
+    get 'posts', to: 'users#posts'
+    get 'comments', to: 'users#comments'
+  end
+
+  resources :posts, path: '/' do
     resources :comments
   end
+
   resources :categories
 end

@@ -1,2 +1,69 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+/* ...
+ *= require_self
+ *= require_tree .
+ */
+
+ .activity {
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  &--comment {
+    margin: 10px 5px;
+  }
+
+  &__header {
+    border: 1px solid #edeff1;
+    padding: 10px;
+    border-radius: 5px 5px 0px 0px;
+    font-size: 14px;
+    color: #666;
+
+    a {
+      color: #787c7e;;
+    }
+
+    a.comment_by {
+      color: #007bff;      
+    }
+  }
+
+  &__body {
+    border: 1px solid #edeff1;
+    padding: 10px;
+    border-radius: 0 0 5px 5px;
+  }
+
+  .comment__header {
+    padding: 5px 0;
+    font-size: 14px;
+    color: #787c7e;
+
+    a.comment_by {
+      color: #1c1c1c;
+    }
+
+    span {
+      font-size: 12px;
+  
+      &.divider {
+        content: "&bull;";
+        margin: 0 5px;
+      }
+  
+      &.how-long-since-posted {}
+    }
+  }
+
+  .comment__content {
+    margin: 5px 0;
+  }
+}

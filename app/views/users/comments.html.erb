@@ -1,0 +1,17 @@
+<% @comments.each do |comment| %>
+  <div class="activity activity--comment">
+    <div class="activity__header">
+      <%= link_to comment.user.email, user_path(comment.user), class: 'comment_by' %> commented on <%= link_to comment.post.title, post_path(comment.post) %> <span class="divider">&bull;</span> Posted by <%= link_to comment.post.user.email, user_path(comment.post.user) %>
+    </div>
+    <div class="activity__body">
+      <div class="comment__header">
+        <%= link_to comment.user.email, user_path(comment.user), class: 'comment_by' %>
+        <span class="divider">&bull;</span>
+        <span class="how-long-since-posted">
+          <%= distance_of_time_in_words comment.created_at, Time.now %>
+        </span>
+      </div>
+      <p class="comment__content"><%= link_to comment.content, edit_post_comment_path(comment.post, comment) %></p>
+    </div>
+  </div>
+<% end %>

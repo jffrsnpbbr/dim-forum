@@ -1,0 +1,31 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-center">Title</th>
+      <th class="text-center">Categories</th>
+      <th class="text-center">Posted on</th>
+      <th class="text-center">Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each_with_index do |post, index| %>
+      <tr>
+          <td>
+            <%= link_to post.title, post_path(post) %></td>
+          <td class="">
+            <% post.categories.each do |category| %>
+                <span class="badge bg-secondary rounded-pill"><%= category.name %></span>
+            <% end %>
+          </td>
+          <td><%= post.created_at %></td>
+          <td class="text-center">
+            <%= link_to post_comments_path(post), class: 'btn btn-outline-primary text-decoration-none' do %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square" viewBox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+              </svg><span class="ms-1"><%= post.comments_count %></span>
+            <% end %>
+          </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
