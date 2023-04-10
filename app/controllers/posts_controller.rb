@@ -14,6 +14,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
+    @post.post_id = generate_unique_post_id
+
     if @post.save
       redirect_to posts_path
     else
@@ -34,7 +36,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    if @post.comments_count == 0
+    if @post.comments_count.zero?
       @post.destroy
       redirect_to posts_path
     else
@@ -53,11 +55,25 @@ class PostsController < ApplicationController
   end
   
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(post_id: params[:id])
   end
 
   def post_params
     params.require(:post).permit(:title, :content, :address, category_ids: [])
   end
 
+  def generate_unique_post_id
+    def new_post_id
+      "#{rand(0..9)}#{rand(0..9)}#{rand(0..9)}#{rand(0..9)}"
+    end
+
+    if Post.unscoped.all.size < 9999
+      post_id = new_post_id
+      post_id = new_post_id while !post_id.empty? && Post.where(post_id: post_id).size.positive?
+    else
+      flash[:notice] = 'Post limit reached, please contact administrator'
+      redirect_to new_post_path
+    end
+    post_id
+  end
 end
