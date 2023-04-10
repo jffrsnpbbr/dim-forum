@@ -12,7 +12,7 @@
 
 <div class="d-grid gap-2 d-md-block">
   <% if user_signed_in? && @post.user == current_user %>
-    <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-outline-dark' %>
-    <%= button_to 'Delete', post_path(@post), method: :delete, class: 'btn btn-outline-danger', form: { style: 'display: inline;' }  if @post.comments_count == 0  %>
+    <%= link_to 'Edit', edit_post_path(@post.post_id), class: 'btn btn-outline-dark' %>
+    <%= button_to 'Delete', post_path(@post.post_id), method: :delete, class: 'btn btn-outline-danger', form: { style: 'display: inline;' }  if @post.comments_count == 0  %>
   <% end %>
 </div>
