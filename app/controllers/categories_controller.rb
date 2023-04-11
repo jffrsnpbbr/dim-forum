@@ -1,5 +1,8 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :validate_user
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :validate_has_zero_post, only: [:destroy]
 
   def index
     @categories = Category.all
@@ -39,8 +42,21 @@ class CategoriesController < ApplicationController
 
   private
 
+  def validate_user
+    unless current_user.admin?
+      redirect_to root_path
+    end
+  end
+
+  def validate_has_zero_post
+    unless @category.posts.size.zero?
+      flash[:notice] = 'cannot delete category that has post'
+      redirect_to categories_path
+    end
+  end
+
   def set_category
-    @category = Category.find(params[:id])
+    @category = Category.includes(:posts).find(params[:id])
   end
 
   def category_params

@@ -11,7 +11,7 @@
         <td><%= category.name %></td>
         <td>
           <%= link_to :edit, edit_category_path(category), class: 'btn btn-outline-dark' %>
-          <%= button_to :delete, category_path(category), method: :delete, form: { class: 'd-inline'}, class: 'btn btn-outline-danger' %>
+          <%= button_to :delete, category_path(category), method: :delete, form: { class: 'd-inline'}, class: 'btn btn-outline-danger' if category.posts.size.zero? %>
         </td>
       </tr>
     <% end %>

@@ -7,10 +7,9 @@ Rails.application.routes.draw do
     get 'posts', to: 'users#posts'
     get 'comments', to: 'users#comments'
   end
-
+  
+  resources :categories
   resources :posts, path: '/' do
     resources :comments
   end
-
-  resources :categories
 end
