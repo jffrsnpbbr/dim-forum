@@ -1,4 +1,4 @@
 <div class="container">
-    <h1 class="text-uppercase">Edit Post id: <%= @post.id %></h1>
-    <%= render partial: 'form', locals: { post: @post } %>
+    <h1 class="text-uppercase">Edit Post id: <%= @post.post_id %></h1>
+    <%= render partial: 'form', locals: { post: @post, path: post_path(@post.post_id) } %>
 </div>

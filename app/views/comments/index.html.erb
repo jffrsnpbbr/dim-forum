@@ -1,5 +1,5 @@
 <h1>Title <%= @post.title %></h1>
-<%= link_to 'New Comment', new_post_comment_path(@post), class: 'btn btn-outline-dark' %>
+<%= link_to 'New Comment', new_post_comment_path(@post.post_id), class: 'btn btn-outline-dark' %>
 <div>
   <% @comments.each do |comment| %>
     <div class="card mx-4 my-3">
@@ -11,8 +11,8 @@
         </div>
         <div class="card-footer">
           <% if user_signed_in? && comment.user == current_user %>
-            <%= link_to 'Edit', edit_post_comment_path(@post, comment), class: 'btn btn-outline-dark' %>
-            <%= button_to 'Delete', post_comment_path(@post, comment), method: :delete, form: { class: 'd-inline'}, class: 'btn btn-outline-danger' %>
+            <%= link_to 'Edit', edit_post_comment_path(@post.post_id, comment), class: 'btn btn-outline-dark' %>
+            <%= button_to 'Delete', post_comment_path(@post.post_id, comment), method: :delete, form: { class: 'd-inline'}, class: 'btn btn-outline-danger' %>
           <% end %>
         </div>
     </div>

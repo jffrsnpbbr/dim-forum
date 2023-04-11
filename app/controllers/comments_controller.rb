@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
     if  @comment.save
-      redirect_to post_comments_path(@post)
+      redirect_to post_comments_path(@post.post_id)
     else
       render :new
     end
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      redirect_to post_comments_path(@post)
+      redirect_to post_comments_path(@post.post_id)
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to post_comments_path(@post)
+    redirect_to post_comments_path(@post.post_id)
   end
 
   private
@@ -47,7 +47,7 @@ class CommentsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find params[:post_id]
+    @post = Post.find_by(post_id: params[:post_id])
   end
 
   def comment_params
