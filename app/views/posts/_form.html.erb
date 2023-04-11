@@ -1,28 +1,30 @@
 <div class="container">
-    <% if post.errors.any? %>
+  <% if post.errors.any? %>
     <ul>
-        <% post.errors.each do |error| %>
+      <% post.errors.each do |error| %>
         <li><%= error.full_message %></li>
-        <% end %>
+      <% end %>
     </ul>
-    <% end %>
-    <%= form_with model: post, url: path do |form| %>
-        <div class="mb-2">
-            <%= form.label :title, class: 'form-label' %>
-            <%= form.text_field :title, class: 'form-control' %>
-        </div>
-        <div class="mb-2">
-            <%= form.label :address, class: 'form-label'  %>
-            <%= form.text_field :address, class: 'form-control' %>
-        </div>
-        <div class="mb-3">
-            <%= form.label :content, class: 'form-label' %>
-            <%= form.text_area :content, class: 'form-control' %>
-        </div>
-        <div>
-        <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
-        </div>
-
-        <%= form.submit 'Submit', class: 'btn btn-primary' %>
-    <% end %>
+  <% end %>
+  <%= form_with model: post, url: path do |form| %>
+    <div class="mb-2">
+      <%= form.label :title, class: 'form-label' %>
+      <%= form.text_field :title, class: 'form-control' %>
+    </div>
+    <div class="mb-2">
+      <%= form.label :address, class: 'form-label'  %>
+      <%= form.text_field :address, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :content, class: 'form-label' %>
+      <%= form.text_area :content, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
+    </div>
+    <div class="mb-3">
+      <%= form.file_field :image %>
+    </div>
+    <%= form.submit 'Submit', class: 'btn btn-primary' %>
+  <% end %>
 </div>

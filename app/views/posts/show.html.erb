@@ -6,6 +6,7 @@
       <span class="badge bg-secondary"><%= category.name %></span> 
     <% end %>
   </div>
+  <%= image_tag @post.image.url, class: 'img-thumbnail border border-5' if @post.image.present?  %>
 <div>
 
 <p><%= @post.content %></p>

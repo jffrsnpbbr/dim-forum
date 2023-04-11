@@ -12,6 +12,8 @@ class Post < ApplicationRecord
 
   belongs_to :user
 
+  mount_uploader :image, ImageUploader
+
   def destroy
     print(:destroy)
     update(deleted_at: Time.now)
