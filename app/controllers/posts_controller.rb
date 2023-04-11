@@ -61,15 +61,14 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :content, :address, category_ids: [])
   end
-
+  
   def generate_unique_post_id
-    def new_post_id
-      "#{rand(0..9)}#{rand(0..9)}#{rand(0..9)}#{rand(0..9)}"
-    end
-
+    post_id = ""
     if Post.unscoped.all.size < 9999
-      post_id = new_post_id
-      post_id = new_post_id while !post_id.empty? && Post.where(post_id: post_id).size.positive?
+      loop do
+        post_id = "#{rand(0..9)}#{rand(0..9)}#{rand(0..9)}#{rand(0..9)}"
+        break unless post_id.empty? && Post.unscoped.where(post_id: post_id).size.positive?
+      end
     else
       flash[:notice] = 'Post limit reached, please contact administrator'
       redirect_to new_post_path
